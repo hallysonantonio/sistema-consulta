@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block 'dashboard' %}
+<h1 class="my-4">Criar Consulta</h1>
+
+<form method="post" class="needs-validation" novalidate>
+    {% csrf_token %}
+    
+    <div class="row">
+        <!-- Paciente -->
+        <div class="form-group col-md-6">
+            <label for="id_paciente">Paciente</label>
+            <input type="number" class="form-control {% if form.paciente.errors %}is-invalid{% endif %}" 
+                   id="id_paciente" name="nome" value="{{ form.paciente.value|default_if_none:'' }}" maxlength="100" required>
+            {% if form.paciente.errors %}
+            <div class="invalid-feedback">{{ form.paciente.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Descrição -->
+        <div class="form-group col-md-3">
+            <label for="id_descricao">Descrição</label>
+            <input type="text" class="form-control {% if form.descricao.errors %}is-invalid{% endif %}" 
+                   id="id_descricao" name="descricao" value="{{ form.descricao.value|default_if_none:'' }}" maxlength="11" required>
+            {% if form.descricao.errors %}
+            <div class="invalid-feedback">{{ form.descricao.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Valor -->
+        <div class="form-group col-md-3">
+            <label for="id_valor">Valor</label>
+            <input type="number" class="form-control {% if form.valor.errors %}is-invalid{% endif %}" 
+                   id="id_valor" name="valor" value="{{ form.valor.value|default_if_none:'' }}" maxlength="11" required>
+            {% if form.valor.errors %}
+            <div class="invalid-feedback">{{ form.valor.errors }}</div>
+            {% endif %}
+        </div>
+
+    </div>
+    <br>
+    <!-- Botões -->
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a href="{% url 'listar_consultas' %}" class="btn btn-secondary ml-2">Voltar</a>
+</form>
+
+{% endblock %}
